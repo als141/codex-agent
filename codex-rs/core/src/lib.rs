@@ -63,3 +63,8 @@ pub use codex_protocol::protocol;
 // Re-export protocol config enums to ensure call sites can use the same types
 // as those in the protocol crate when constructing protocol messages.
 pub use codex_protocol::config_types as protocol_config_types;
+
+// Minimal public re-exports for external API consumers (e.g., API server)
+pub use crate::client::ModelClient;
+pub use crate::client_common::Prompt;
+pub use crate::client_common::ResponseEvent;

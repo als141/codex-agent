@@ -141,6 +141,15 @@ impl ModelClient {
         }
     }
 
+    /// Public wrapper that returns an opaque Stream so external crates do not
+    /// depend on internal `ResponseStream` type visibility.
+    pub async fn stream_owned(
+        self: Arc<Self>,
+        prompt: Prompt,
+    ) -> Result<impl futures::Stream<Item = Result<ResponseEvent>> + Send + 'static> {
+        self.stream(&prompt).await
+    }
+
     /// Implementation for the OpenAI *Responses* experimental API.
     async fn stream_responses(&self, prompt: &Prompt) -> Result<ResponseStream> {
         if let Some(path) = &*CODEX_RS_SSE_FIXTURE {
